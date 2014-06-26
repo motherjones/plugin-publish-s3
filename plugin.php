@@ -35,9 +35,7 @@ class DatawrapperPlugin_PublishS3 extends DatawrapperPlugin {
         $cfg = $this->getConfig();
         $s3 = $this->_getS3($cfg);
         foreach ($files as $info) {
-            $header = array();
-            if (count($info) > 2) $header['Content-Type'] = $info[2];
-            $s3->putObjectFile($info[0], $cfg['bucket'], $info[1], S3::ACL_PUBLIC_READ, array(), $header);
+            $s3->putObject(S3::inputFile($info[0], false), $cfg['bucket'], $info[1], S3::ACL_PUBLIC_READ);
         }
     }
 
